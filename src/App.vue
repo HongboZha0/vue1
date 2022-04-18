@@ -1,27 +1,28 @@
 <template>
-  <div @click="clickA">{{ a }}</div>
-  <div class="tran" :style="{ fontSize: a + 'px' }">
-    {{ isPrimeNum ? "偶数" : "奇数" }}
+  <div>
+    <FoodItem
+      v-for="item in foodList"
+      :key="item"
+      :name="item.attributes.name"
+      :url="item.attributes.pic_url"
+    ></FoodItem>
   </div>
-  <div v-if="isPrimeNum ? 0 : 1" class="tran" @click="clickB">{{ b }}</div>
-  <div v-else>on no!</div>
 </template>
 
 
 <script setup>
-import { ref, computed } from "vue";
-
-const clickA = () => {
-  a.value++;
-  console.log(a);
-};
-const clickB = () => {
-  fontSize.value++;
-};
-const a = ref(1);
-const b = ref(100);
-const fontSize = ref(10);
-const isPrimeNum = computed(() => (a.value % 2 == 0 ? 1 : 0));
+import AV from "leancloud-storage";
+import FoodItem from "@/views/FoodItem.vue";
+import { ref } from "vue";
+// const clickA = () => {
+//   console.log(1);
+// };
+const query = new AV.Query("Food");
+const foodList = ref([]);
+query.find().then((foods) => {
+  console.log(foods);
+  foodList.value = foods;
+});
 </script>
 
 <style lang="scss">
@@ -29,7 +30,7 @@ const isPrimeNum = computed(() => (a.value % 2 == 0 ? 1 : 0));
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
 }
 
@@ -43,18 +44,6 @@ nav {
     &.router-link-exact-active {
       color: #42b983;
     }
-  }
-}
-
-.active {
-  font-size: 20px;
-  color: #127fed;
-}
-
-.tran {
-  transition: all 0.15s linear;
-  &:hover {
-    color: #127fed;
   }
 }
 </style>
