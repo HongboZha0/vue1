@@ -3,7 +3,8 @@
   <div class="tran" :style="{ fontSize: a + 'px' }">
     {{ isPrimeNum ? "偶数" : "奇数" }}
   </div>
-  <div class="tran" @click="clickB">{{ b }}</div>
+  <div v-if="isPrimeNum ? 0 : 1" class="tran" @click="clickB">{{ b }}</div>
+  <div v-else>on no!</div>
 </template>
 
 
