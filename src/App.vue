@@ -1,8 +1,11 @@
 <template>
   <div @click="clickA">{{ a }}</div>
-  <div>{{ isPrimeNum }}</div>
+  <div :class="{ active: isPrimeNum }">
+    {{ isPrimeNum ? "偶数" : "奇数" }}
+  </div>
   <div @click="clickB">{{ b }}</div>
 </template>
+
 
 <script setup>
 import { ref, computed } from "vue";
@@ -16,8 +19,7 @@ const clickB = () => {
 };
 const a = ref(1);
 const b = ref(100);
-const isPrimeNum = computed(d);
-const d = () => (a.value % 2 == 0 ? "偶数" : "奇数");
+const isPrimeNum = computed(() => (a.value % 2 == 0 ? 1 : 0));
 </script>
 
 <style lang="scss">
@@ -40,5 +42,10 @@ nav {
       color: #42b983;
     }
   }
+}
+
+.active {
+  font-size: 20px;
+  color: #127fed;
 }
 </style>
