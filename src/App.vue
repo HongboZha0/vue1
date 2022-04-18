@@ -1,9 +1,9 @@
 <template>
   <div @click="clickA">{{ a }}</div>
-  <div :class="{ active: isPrimeNum }">
+  <div class="tran" :style="{ fontSize: a + 'px' }">
     {{ isPrimeNum ? "偶数" : "奇数" }}
   </div>
-  <div @click="clickB">{{ b }}</div>
+  <div class="tran" @click="clickB">{{ b }}</div>
 </template>
 
 
@@ -15,10 +15,11 @@ const clickA = () => {
   console.log(a);
 };
 const clickB = () => {
-  b.value = b.value + 10;
+  fontSize.value++;
 };
 const a = ref(1);
 const b = ref(100);
+const fontSize = ref(10);
 const isPrimeNum = computed(() => (a.value % 2 == 0 ? 1 : 0));
 </script>
 
@@ -47,5 +48,12 @@ nav {
 .active {
   font-size: 20px;
   color: #127fed;
+}
+
+.tran {
+  transition: all 0.15s linear;
+  &:hover {
+    color: #127fed;
+  }
 }
 </style>
