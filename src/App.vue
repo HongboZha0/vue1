@@ -1,22 +1,23 @@
 <template>
   <div @click="clickA">{{ a }}</div>
-  <div @click="clickB">{{ b.fuck }}</div>
+  <div>{{ isPrimeNum }}</div>
+  <div @click="clickB">{{ b }}</div>
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, computed } from "vue";
 
 const clickA = () => {
   a.value++;
   console.log(a);
 };
-
 const clickB = () => {
-  b.fuck++;
-  console.log(b);
+  b.value = b.value + 10;
 };
 const a = ref(1);
-const b = reactive({ fuck: 2 });
+const b = ref(100);
+const isPrimeNum = computed(d);
+const d = () => (a.value % 2 == 0 ? "偶数" : "奇数");
 </script>
 
 <style lang="scss">
